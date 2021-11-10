@@ -18,6 +18,6 @@ public class ClientSession {
     @Id
     private String uuid;
     private String clientUuid;
-    private LocalDateTime created;
+    private LocalDateTime created = LocalDateTime.now();
     private LocalDateTime expiredDate;
 }

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.arturos</groupId>
+    <groupId>com.arturos.summer.backend</groupId>
     <artifactId>summer-digital</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -46,6 +46,12 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.11</version>
+        </dependency>
+
     </dependencies>
 
     <profiles>
@@ -59,6 +65,7 @@
                 <db_url>jdbc:h2:mem:testdb</db_url>
                 <db_user>sa</db_user>
                 <db_pass>password</db_pass>
+                <secret_lifetime_days>120</secret_lifetime_days>
             </properties>
         </profile>
     </profiles>

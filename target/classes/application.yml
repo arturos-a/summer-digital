@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: @db_url@
-    username: @db_user@
-    password: @db_pass@
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: password
   h2:
     console:
       enabled: true
@@ -12,4 +12,4 @@ spring:
   jpa:
     show-sql: true
 app:
-  secret-lifetime: @secret_lifetime_days@
+  secret-lifetime: 120
