@@ -1,5 +1,6 @@
 package com.artur.summer.backend.security.impl;
 
+import com.artur.summer.backend.exception.WrongUsernameOrPassword;
 import com.artur.summer.backend.model.ClientInfo;
 import com.artur.summer.backend.model.ClientSession;
 import com.artur.summer.backend.repository.ClientInfoRepository;
@@ -46,6 +47,8 @@ public class DefaultClientTokenService implements ClientTokenService {
         ClientSession clientSession = generateToken(clientInfo.getUuid());
         if (authResult) {
             clientSessionRepository.save(clientSession);
+        } else {
+            throw new WrongUsernameOrPassword();
         }
         return clientSession.getUuid();
     }

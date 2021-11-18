@@ -8,8 +8,12 @@ spring:
       enabled: true
 
   liquibase:
+    default-schema: @default.schema@
     change-log: classpath:db/changelog.yml
   jpa:
     show-sql: true
+    properties:
+      hibernate:
+        default_schema: summer_bank
 app:
   secret-lifetime: @secret_lifetime_days@

@@ -25,10 +25,15 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>com.h2database</groupId>-->
+<!--            <artifactId>h2</artifactId>-->
+<!--            <scope>runtime</scope>-->
+<!--        </dependency>-->
+
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
         </dependency>
 
         <dependency>
@@ -62,10 +67,12 @@
             </activation>
 
             <properties>
-                <db_url>jdbc:h2:mem:testdb</db_url>
+<!--                <db_url>jdbc:h2:mem:testdb</db_url>-->
+                <db_url>jdbc:postgresql://localhost:5432/postgres</db_url>
                 <db_user>sa</db_user>
                 <db_pass>password</db_pass>
                 <secret_lifetime_days>120</secret_lifetime_days>
+                <default.schema>summer_bank</default.schema>
             </properties>
         </profile>
     </profiles>
