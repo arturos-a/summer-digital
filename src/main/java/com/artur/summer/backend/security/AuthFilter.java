@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class AuthFilter extends AbstractAuthenticationProcessingFilter {
 
-    private static final String X_AUTHORIZATION = "X-AUTH-TOKEN";
+    public static final String X_AUTHORIZATION = "X-AUTH-TOKEN";
 
     AuthFilter(final RequestMatcher requiresAuth) {
         super(requiresAuth);

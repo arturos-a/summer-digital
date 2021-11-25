@@ -64,7 +64,7 @@ public class DefaultClientTokenService implements ClientTokenService {
             if (clientInfo == null) {
                 return Optional.empty();
             }
-            if (session.getExpiredDate().isBefore(LocalDateTime.now())) {
+            if (session.getExpiredDate().plusMinutes(SESSION_LIFETIME).isBefore(LocalDateTime.now())) {
                 isNonExpired = false;
             } else {
                 session.setExpiredDate(LocalDateTime.now());
@@ -75,6 +75,18 @@ public class DefaultClientTokenService implements ClientTokenService {
             return Optional.of(user);
         }
         return Optional.empty();
+    }
+
+    @Override
+    public ClientInfo getClientInfoByToken(String token) {
+        ClientInfo clientInfo = null;
+        Optional<ClientSession> clientSession = clientSessionRepository.findClientSessionByUuid(token);
+        if (clientSession.isPresent()) {
+            clientInfo = clientInfoRepository.getClientInfoByUuid(clientSession.get().getClientUuid());
+        } else {
+            throw new RuntimeException("Клиент не найден");
+        }
+        return clientInfo;
     }
 
     private ClientSession generateToken(String clientUuid) {

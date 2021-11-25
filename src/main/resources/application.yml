@@ -15,5 +15,7 @@ spring:
     properties:
       hibernate:
         default_schema: summer_bank
+    hibernate:
+      ddl-auto: update
 app:
   secret-lifetime: @secret_lifetime_days@
