@@ -19,3 +19,5 @@ spring:
       ddl-auto: update
 app:
   secret-lifetime: 120
+server:
+  port: 8081

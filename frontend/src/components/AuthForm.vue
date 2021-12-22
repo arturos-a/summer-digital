@@ -11,24 +11,32 @@
               class="mb-4"
               v-model="login"
               label="Имя пользователя"
+              :error-messages="errorLoginMsg"
+              :error="errorLogin"
           />
         </div>
         <div class="">
           <va-input
+              type="password"
               class="mb-4"
               v-model="password"
               label="Пароль"
+              :error-messages="errorPasswordMsg"
+              :error="errorPassword"
           />
         </div>
         <div class="auth-button-wrapper">
-          <va-button :rounded="false" class="" @click="auth">Войти</va-button>
+          <va-button :rounded="false" :loading="loading" class="" @click="auth">Войти</va-button>
         </div>
       </form>
     </div>
   </div>
 </template>
 <script>
-import {VaButton, VaInput} from 'vuestic-ui'
+import {VaButton, VaInput,} from 'vuestic-ui'
+import apiClient from '@/client/clientApi.js'
+import {sha256} from "js-sha256";
+import router from "@/router/router";
 
 export default {
   name: 'AuthForm',
@@ -41,21 +49,41 @@ export default {
   },
   data() {
     return {
-      login: '', password: ''
+      login: '',
+      password: '',
+      loading: false,
+      errorLogin: false,
+      errorPassword: false,
+      errorLoginMsg: '',
+      errorPasswordMsg: ''
     }
   },
   methods: {
     auth: function () {
-      this.$http.get('/someUrl').then(response => {
-
-        // get body data
-        this.someData = response.body;
-
+      this.errorLogin = false;
+      this.errorPassword = false;
+      this.errorLoginMsg = '';
+      this.errorPasswordMsg = '';
+      this.loading = true;
+      let salt = sha256((Math.random() + 1).toString(36).substring(7) + Math.random());
+      let password = sha256(salt + sha256(this.password));
+      apiClient.post('auth', {
+        'login': this.login,
+        'salt': salt,
+        'password': password
+      }).then(response => {
+        let token = response.data;
+        localStorage.setItem("X-AUTH-TOKEN", token);
+        this.loading = false;
+        router.push({ name: 'main' });
       }, response => {
-        // error callback
+        this.loading = false;
+        let responseStatus = JSON.parse(JSON.stringify(response));
+        this.errorLogin = true;
+        this.errorLoginMsg = responseStatus.status == 401 ? 'Клиент с указанными данными не найден' : 'Ошибка авторизации';
+      }).catch(error => {
+        this.loading = false;
       });
-      console.log(this.login);
-      console.log(this.password);
     }
   }
 }

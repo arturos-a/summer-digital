@@ -2,13 +2,14 @@ import Login from '@/views/LoginPage.vue'
 import NotFound from '@/views/NotFound.vue'
 import {createRouter, createWebHistory} from 'vue-router'
 import Main from "@/components/Main";
+import {getTokenName} from "@/constants/constants";
 
 const routes = [{
-    path: '/login',
+    path: '/',
     name: 'login',
     component: Login,
 }, {
-    path: '/main',
+    path: '/client/main',
     name: 'main',
     component: Main,
     meta: {
@@ -24,9 +25,9 @@ const router = createRouter({
 })
 router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (localStorage.getItem('token') == null) {
+        if (localStorage.getItem(getTokenName()) == null) {
             next({
-                path: '/login',
+                path: '/',
                 params: {nextUrl: to.fullPath}
             })
         } else {

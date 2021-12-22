@@ -3,14 +3,13 @@ package com.artur.summer.backend.controller;
 import com.artur.summer.backend.dto.AuthDTO;
 import com.artur.summer.backend.security.ClientTokenService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class LoginController {
+public class LoginController{
 
     private ClientTokenService clientTokenService;
 
@@ -27,4 +26,5 @@ public class LoginController {
         }
         return token;
     }
+
 }
