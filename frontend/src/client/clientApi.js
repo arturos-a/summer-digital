@@ -4,7 +4,7 @@ import {getTimeOut} from "@/constants/constants";
 
 function apiClient() {
     let token = localStorage.getItem(getTokenName());
-    return apiClient = axios.create({
+    return axios.create({
         baseURL: 'http://localhost:8081',
         timeout: getTimeOut(),
         headers: {'X-AUTH-TOKEN': token}

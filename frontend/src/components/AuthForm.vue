@@ -82,6 +82,7 @@ export default {
         this.errorLogin = true;
         this.errorLoginMsg = responseStatus.status == 401 ? 'Клиент с указанными данными не найден' : 'Ошибка авторизации';
       }).catch(error => {
+
         this.loading = false;
       });
     }
