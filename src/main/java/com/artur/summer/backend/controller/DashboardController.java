@@ -20,7 +20,7 @@ public class DashboardController extends Api {
     private final ProductService productService;
     private final ClientTokenService tokenService;
 
-    @PostMapping(value = "/client-info")
+    @GetMapping(value = "/client-info")
     public @ResponseBody
     ClientInfoDto getAccounts(@RequestHeader(X_AUTHORIZATION) String session) {
         return clientService.getClientInfo(session);

@@ -11,6 +11,7 @@
 </template>
 <script>
 import AuthForm from "@/components/AuthForm";
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 export default {
   name: 'LoginPage',
@@ -27,7 +28,7 @@ export default {
   background-image: url('~@/assets/loginbg.jpg');
   background-origin: content-box;
   background-size: cover;
-  min-height: 960px;
+  min-height: 900px;
   min-width: 100%;
   display: flex;
 }

@@ -5,7 +5,7 @@ import Main from "@/components/Main";
 import {getTokenName} from "@/constants/constants";
 
 const routes = [{
-    path: '/',
+    path: '/login',
     name: 'login',
     component: Login,
 }, {
@@ -18,7 +18,9 @@ const routes = [{
 }, {
     path: "/:catchAll(.*)",
     component: NotFound,
-}]
+}
+
+]
 const router = createRouter({
     history: createWebHistory(),
     routes
@@ -27,7 +29,7 @@ router.beforeEach((to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (localStorage.getItem(getTokenName()) == null) {
             next({
-                path: '/',
+                path: '/login',
                 params: {nextUrl: to.fullPath}
             })
         } else {

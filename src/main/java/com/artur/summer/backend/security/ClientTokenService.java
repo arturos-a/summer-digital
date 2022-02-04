@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface ClientTokenService {
     String login(String username, String salt, String password) throws Throwable;
+    void logout(String token);
 
     Optional<UserDetails> findByToken(String token);
 

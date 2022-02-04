@@ -1,5 +1,6 @@
 package com.artur.summer.backend.security.impl;
 
+import com.artur.summer.backend.constants.SessionStatus;
 import com.artur.summer.backend.exception.WrongUsernameOrPassword;
 import com.artur.summer.backend.model.ClientInfo;
 import com.artur.summer.backend.model.ClientSession;
@@ -64,10 +65,11 @@ public class DefaultClientTokenService implements ClientTokenService {
             if (clientInfo == null) {
                 return Optional.empty();
             }
-            if (session.getExpiredDate().plusMinutes(SESSION_LIFETIME).isBefore(LocalDateTime.now())) {
+            if (session.getSessionStatus().equals(SessionStatus.EXP) && session.getExpiredDate().plusMinutes(SESSION_LIFETIME).isBefore(LocalDateTime.now())) {
                 isNonExpired = false;
             } else {
                 session.setExpiredDate(LocalDateTime.now());
+                session.setSessionStatus(SessionStatus.EXP);
                 clientSessionRepository.save(session);
             }
             User user = new User(clientInfo.getLogin(), clientInfo.getSecretHash(), true, true, isNonExpired, true,
@@ -98,6 +100,15 @@ public class DefaultClientTokenService implements ClientTokenService {
         clientSession.setExpiredDate(LocalDateTime.now().plusMinutes(SESSION_LIFETIME));
         clientSession.setCreated(LocalDateTime.now());
         clientSession.setUuid(UUID.randomUUID().toString());
+        clientSession.setSessionStatus(SessionStatus.ACT);
         return clientSession;
+    }
+
+    public void logout(String token) {
+        Optional<ClientSession> clientSessionByUuid = clientSessionRepository.findClientSessionByUuid(token);
+        clientSessionByUuid.ifPresent(impl -> {
+            impl.setSessionStatus(SessionStatus.DEL);
+            impl.setUpdated(LocalDateTime.now());
+        });
     }
 }

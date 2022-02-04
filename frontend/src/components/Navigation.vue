@@ -11,7 +11,11 @@
         </router-link>
       </div>
       <div class="client-info">
+        <i class="material-icons user-icon">person</i>
         <span>{{ clientName }}</span>
+        <a @click="logout" class="nav-link logout-icon" active-class="active">
+          <i class="material-icons">exit_to_app</i>
+        </a>
       </div>
       <div>
       </div>
@@ -20,7 +24,10 @@
 </template>
 <script>
 
-import { mdiAccount } from '@mdi/js'
+import {mdiAccount} from '@mdi/js'
+import apiClient from "@/client/clientApi";
+import {getTokenName} from "@/constants/constants";
+import router from "@/router/router";
 
 
 export default {
@@ -33,6 +40,29 @@ export default {
       ],
       clientName: "Иванов Иван", svgPath: mdiAccount
     }
+  },
+  methods: {
+    logout: function () {
+      apiClient.get('/api/client-info').then(response => {
+        localStorage.removeItem(getTokenName());
+        router.push("/")
+      }, response => {
+        let responseStatus = JSON.parse(JSON.stringify(response));
+        this.errorLoginMsg = responseStatus.status == 401 ? 'Клиент с указанными данными не найден' : 'Ошибка';
+      }).catch(error => {
+        this.loading = false;
+      });
+    }
+  },
+  mounted() {
+    apiClient.get('/api/client-info').then(response => {
+      this.clientName = response.data.firstName + " " + response.data.middleName;
+    }, response => {
+      let responseStatus = JSON.parse(JSON.stringify(response));
+      this.errorLoginMsg = responseStatus.status == 401 ? 'Клиент с указанными данными не найден' : 'Ошибка авторизации';
+    }).catch(error => {
+      this.loading = false;
+    });
   }
 }</script>
 <style>
@@ -115,8 +145,18 @@ ul li {
 }
 
 .client-info {
-  grid-column: span 7;
+  grid-column: span 8;
   line-height: 3.5rem;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.client-info .user-icon {
+  vertical-align: sub;
+}
+
+.client-info .logout-icon {
+  vertical-align: sub;
 }
 
 

@@ -4,14 +4,14 @@ import com.artur.summer.backend.dto.AuthDTO;
 import com.artur.summer.backend.security.ClientTokenService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import static com.artur.summer.backend.security.AuthFilter.X_AUTHORIZATION;
 
 @RestController
 public class LoginController{
 
-    private ClientTokenService clientTokenService;
+    private final ClientTokenService clientTokenService;
 
     public LoginController(ClientTokenService clientTokenService) {
         this.clientTokenService = clientTokenService;
@@ -25,6 +25,10 @@ public class LoginController{
             throw new UsernameNotFoundException("Не найдена комбинация пользователя и пароля");
         }
         return token;
+    }
+    @GetMapping(value = "/logout")
+    public void logout(@RequestHeader(X_AUTHORIZATION) String sessionToken){
+        clientTokenService.logout(sessionToken);
     }
 
 }

@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "predeploy": "rimraf ../src/main/resources/static/ && mkdirp ../src/main/resources/static",
+    "predeploy": "rimraf ../src/main/resources/templates/ && mkdirp ../src/main/resources/templates",
     "build": "vue-cli-service build",
-    "deploy": "shx cp -r  dist/* ../src/main/resources/static",
+    "deploy": "shx cp -r  dist/* ../src/main/resources/templates",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

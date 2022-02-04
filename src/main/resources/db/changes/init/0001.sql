@@ -22,7 +22,7 @@ create table summer_bank.CLIENT_INFO
 INSERT INTO summer_bank.CLIENT_INFO
 (UUID, FIRST_NAME, LAST_NAME, MIDDLE_NAME, LOGIN, SECRET_HASH, SECRET_DATE, ADDRESS, CERTIFICATE_NUMBER, CREATED,
  STATUS)
-VALUES ('fc7563e0-6a1a-4290-a5db-16120eb71f3b', 'Сидоров', 'Аристарх', 'Ибрагимович', 'SAI',
+VALUES ('fc7563e0-6a1a-4290-a5db-16120eb71f3b', 'Аристарх', 'Сидоров', 'Ибрагимович', 'SAI',
         '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', current_timestamp,
         'Москва, ул. Академика Королева 12', '8901 789786', current_timestamp, 'ACTIVE');
 create table summer_bank.client_session

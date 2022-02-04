@@ -14,4 +14,13 @@
                  endDelimiter=";" />
     </changeSet>
 
+    <changeSet author="AArslanov" id="init_add_session_status">
+        <sqlFile path="./0002.sql"
+                 splitStatements="false"
+                 stripComments="false"
+                 encoding="utf8"
+                 relativeToChangelogFile="true"
+                 endDelimiter=";" />
+    </changeSet>
+
 </databaseChangeLog>
