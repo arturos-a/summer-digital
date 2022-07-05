@@ -2,11 +2,12 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "main": "app.js",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "predeploy": "rimraf ../src/main/resources/templates/ && mkdirp ../src/main/resources/templates",
+    "predeploy": "rimraf ../src/main/resources/templates/ && rimraf ../src/main/resources/static/ && mkdirp ../src/main/resources/templates && mkdirp ../src/main/resources/static",
     "build": "vue-cli-service build",
-    "deploy": "shx cp -r  dist/* ../src/main/resources/templates",
+    "deploy": "shx cp -r  dist/index.html ../src/main/resources/templates && shx cp -r  dist/* ../src/main/resources/static && shx echo Done ",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -14,6 +15,7 @@
     "axios": "^0.24.0",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
+    "dotenv": "^16.0.0",
     "jquery": "^3.6.0",
     "js-sha256": "^0.9.0",
     "vue": "^3.0.0",

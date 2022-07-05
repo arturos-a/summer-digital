@@ -2,11 +2,11 @@
   <header class="nav-header">
     <div class="nav-grid">
       <div class="nav-logo">
-        <a class="logo" href="javascript:;" title="Главная"></a>
+        <div class="logo" title="Главная"></div>
       </div>
       <div class="nav-break wrapper"></div>
       <div class="menu-wrapper" v-for="route in routes" v-bind:key="route.id">
-        <router-link :to="route" class="nav-link" active-class="active">
+        <router-link :to="{ name: route.name}" class="nav-link" active-class="active">
           {{ route.title }}
         </router-link>
       </div>
@@ -36,14 +36,18 @@ export default {
   data: function () {
     return {
       routes: [
-        {id: "1", title: "Продукты"}, {id: "2", title: "Оплата услуг"}, {id: "3", title: "История"},
+        {id: "1", title: "Продукты", name: 'main'}, {id: "2", title: "Оплата услуг", name: ''}, {
+          id: "3",
+          title: "История",
+          name: ''
+        },
       ],
-      clientName: "Иванов Иван", svgPath: mdiAccount
+      clientName: "", svgPath: mdiAccount
     }
   },
   methods: {
     logout: function () {
-      apiClient.get('/api/client-info').then(response => {
+      apiClient.get('/logout').then(response => {
         localStorage.removeItem(getTokenName());
         router.push("/")
       }, response => {
@@ -93,7 +97,7 @@ export default {
   grid-column: span 3;
 }
 
-a.logo {
+div.logo {
   color: transparent;
   border: 0;
   width: 12.5rem;

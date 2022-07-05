@@ -16,5 +16,9 @@ import java.time.LocalDateTime;
 public class Account extends Product {
     private String accountNumber;
     private LocalDateTime accountDate;
-    private String accountBic;
+    private String bankBic;
+    private String bankKpp;
+    private String corrAccountNumber;
+    private String bankName;
+    private String ownerUuid;
 }

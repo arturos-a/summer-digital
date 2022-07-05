@@ -1,13 +1,11 @@
 package com.artur.summer.backend.model;
 
+import com.artur.summer.backend.constants.ProductType;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -21,9 +19,10 @@ public class ProductInfo {
     private String alias;
     @ManyToOne
     private ClientInfo clientInfo;
-    @ManyToOne
-    private Product product;
+    private String productUuid;
     private boolean isActive = true;
     private boolean isVisible = true;
     private LocalDateTime created;
+    @Enumerated(value = EnumType.STRING)
+    private ProductType type;
 }

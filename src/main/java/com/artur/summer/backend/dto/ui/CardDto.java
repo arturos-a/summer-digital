@@ -4,6 +4,7 @@ import com.artur.summer.backend.constants.Currency;
 import lombok.Data;
 
 import java.math.BigDecimal;
+
 @Data
 public class CardDto {
     private String uuid;
@@ -13,4 +14,6 @@ public class CardDto {
     private String cardOwner;
     private BigDecimal amount;
     private Currency currency;
+    private BigDecimal percent;
+    private AccountProfileDto account;
 }

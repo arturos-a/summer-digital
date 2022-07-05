@@ -4,7 +4,8 @@
   </div>
   <div class="footer">
     <div class="">
-      <div class="">© 2021 Акционерная фирма «САММЕР ДЕЙ БАНК». Генеральная лицензия Центрального Банка Гогвардса №5 выдана 10.09.3010 г.
+      <div class="">© 2021 Акционерная фирма «САММЕР ДЕЙ БАНК». Генеральная лицензия Центрального Банка Гогвардса №5
+        выдана 10.09.3010 г.
       </div>
     </div>
   </div>
@@ -12,14 +13,15 @@
 <script>
 import AuthForm from "@/components/AuthForm";
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
+import 'dotenv/config'
 
 export default {
   name: 'LoginPage',
   components: {
     AuthForm
   },
-  props: {
-    msg: String
+  props: {},
+  beforeMount() {
   }
 }
 </script>
@@ -32,6 +34,7 @@ export default {
   min-width: 100%;
   display: flex;
 }
+
 .footer {
   box-shadow: inset 0 1px 0 0 #dddfe0;
   background-color: #e8e8ea;

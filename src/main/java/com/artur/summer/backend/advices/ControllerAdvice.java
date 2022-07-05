@@ -1,5 +1,6 @@
 package com.artur.summer.backend.advices;
 
+import com.artur.summer.backend.exception.SessionExpiredException;
 import com.artur.summer.backend.exception.WrongUsernameOrPassword;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class ControllerAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value
-            = {WrongUsernameOrPassword.class})
+            = {WrongUsernameOrPassword.class, SessionExpiredException.class})
     protected ResponseEntity<Object> handleWrongPassword(
             RuntimeException ex, WebRequest request) {
         return handleExceptionInternal(ex, "",

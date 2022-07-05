@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import static com.artur.summer.backend.security.AuthFilter.X_AUTHORIZATION;
 
 @RestController
-public class LoginController{
+public class LoginController {
 
     private final ClientTokenService clientTokenService;
 
@@ -26,8 +26,9 @@ public class LoginController{
         }
         return token;
     }
+
     @GetMapping(value = "/logout")
-    public void logout(@RequestHeader(X_AUTHORIZATION) String sessionToken){
+    public void logout(@RequestHeader(X_AUTHORIZATION) String sessionToken) {
         clientTokenService.logout(sessionToken);
     }
 

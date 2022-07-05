@@ -13,10 +13,23 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.3.2.RELEASE</version>
     </parent>
+
+    <repositories>
+        <repository>
+            <id>central</id>
+            <name>Maven Repository Switchboard</name>
+            <layout>default</layout>
+            <url>https://repo1.maven.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <properties>
         <modelmapper.version>2.4.4</modelmapper.version>
+        <java.version>1.8</java.version>
     </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -35,8 +48,8 @@
         <!--        </dependency>-->
 
         <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
         </dependency>
 
         <dependency>
@@ -52,6 +65,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>1.18.22</version>
         </dependency>
 
         <dependency>
@@ -71,7 +85,27 @@
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter</artifactId>
+            <version>7.15.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
+            <version>7.15.0 </version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vladmihalcea</groupId>
+            <artifactId>hibernate-types-52</artifactId>
+            <version>2.11.1</version>
+        </dependency>
+
+
     </dependencies>
+
 
     <profiles>
         <profile>
@@ -82,13 +116,56 @@
 
             <properties>
                 <!--                <db_url>jdbc:h2:mem:testdb</db_url>-->
+                <!--                <db_url>jdbc:postgresql://10.1.1.2:5432/postgres</db_url>-->
                 <db_url>jdbc:postgresql://localhost:5432/postgres</db_url>
                 <db_user>sa</db_user>
                 <db_pass>password</db_pass>
                 <secret_lifetime_days>120</secret_lifetime_days>
                 <default.schema>summer_bank</default.schema>
+                <npm.env.code>development</npm.env.code>
             </properties>
         </profile>
+
+        <profile>
+            <id>h2</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+
+            <properties>
+                <!--                <db_url>jdbc:h2:mem:testdb</db_url>-->
+                <!--                <db_url>jdbc:postgresql://10.1.1.2:5432/postgres</db_url>-->
+                <db_url>jdbc:h2:mem:testdb;MODE=PostgreSQL;INIT=CREATE SCHEMA IF NOT EXISTS SUMMER_BANK</db_url>
+                <db_user>sa</db_user>
+                <db_pass>password</db_pass>
+                <secret_lifetime_days>120</secret_lifetime_days>
+                <default.schema>summer_bank</default.schema>
+                <npm.env.code>development</npm.env.code>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>docker</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+
+            <properties>
+                <!--suppress UnresolvedMavenProperty -->
+                <db_url>${DB_URL}</db_url>
+                <!--suppress UnresolvedMavenProperty -->
+                <db_user>${DB_USER}</db_user>
+                <!--suppress UnresolvedMavenProperty -->
+                <db_pass>${DB_PASS}</db_pass>
+                <!--suppress UnresolvedMavenProperty -->
+                <secret_lifetime_days>${SECRET_LIFETIME}</secret_lifetime_days>
+                <!--suppress UnresolvedMavenProperty -->
+                <default.schema>${DEFAULT_SCHEMA}</default.schema>
+                <!--suppress UnresolvedMavenProperty -->
+                <npm.env.code>${ENV_CODE}</npm.env.code>
+            </properties>
+        </profile>
+
     </profiles>
 
     <build>
@@ -136,7 +213,7 @@
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>run build</arguments>
+                            <arguments>run build -- --mode ${npm.env.code}</arguments>
                         </configuration>
                     </execution>
                     <execution>
@@ -177,6 +254,14 @@
                             <Implementation-Build-Date>${maven.build.timestamp}</Implementation-Build-Date>
                         </manifestEntries>
                     </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
                 </configuration>
             </plugin>
         </plugins>

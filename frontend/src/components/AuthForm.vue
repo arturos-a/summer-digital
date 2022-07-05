@@ -37,6 +37,7 @@ import {VaButton, VaInput,} from 'vuestic-ui'
 import apiClient from '@/client/clientApi.js'
 import {sha256} from "js-sha256";
 import router from "@/router/router";
+import {getTokenName} from "@/constants/constants";
 
 export default {
   name: 'AuthForm',
@@ -73,9 +74,9 @@ export default {
         'password': password
       }).then(response => {
         let token = response.data;
-        localStorage.setItem("X-AUTH-TOKEN", token);
+        localStorage.setItem(getTokenName(), token);
         this.loading = false;
-        router.push({ name: 'main' });
+        router.push({name: 'main'});
       }, response => {
         this.loading = false;
         let responseStatus = JSON.parse(JSON.stringify(response));

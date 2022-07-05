@@ -1,6 +1,7 @@
 package com.artur.summer.backend.security.impl;
 
 import com.artur.summer.backend.constants.SessionStatus;
+import com.artur.summer.backend.exception.SessionExpiredException;
 import com.artur.summer.backend.exception.WrongUsernameOrPassword;
 import com.artur.summer.backend.model.ClientInfo;
 import com.artur.summer.backend.model.ClientSession;
@@ -57,6 +58,7 @@ public class DefaultClientTokenService implements ClientTokenService {
     @Override
     @SneakyThrows
     public Optional<UserDetails> findByToken(String token) {
+        if (token == null) throw new SessionExpiredException();
         Optional<ClientSession> clientSession = clientSessionRepository.findClientSessionByUuid(token);
         if (clientSession.isPresent()) {
             ClientSession session = clientSession.get();
@@ -65,9 +67,8 @@ public class DefaultClientTokenService implements ClientTokenService {
             if (clientInfo == null) {
                 return Optional.empty();
             }
-            if (session.getSessionStatus().equals(SessionStatus.EXP) && session.getExpiredDate().plusMinutes(SESSION_LIFETIME).isBefore(LocalDateTime.now())) {
+            if (session.getSessionStatus() != null && (session.getSessionStatus().equals(SessionStatus.EXP) || session.getExpiredDate().plusMinutes(SESSION_LIFETIME).isBefore(LocalDateTime.now()))) {
                 isNonExpired = false;
-            } else {
                 session.setExpiredDate(LocalDateTime.now());
                 session.setSessionStatus(SessionStatus.EXP);
                 clientSessionRepository.save(session);
@@ -76,7 +77,7 @@ public class DefaultClientTokenService implements ClientTokenService {
                     AuthorityUtils.createAuthorityList("USER"));
             return Optional.of(user);
         }
-        return Optional.empty();
+        throw new WrongUsernameOrPassword();
     }
 
     @Override

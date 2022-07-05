@@ -84,10 +84,10 @@ create table summer_bank.product
     updated   timestamp,
     primary key (uuid)
 );
-alter table if exists summer_bank.account add constraint FKs3xylajkomrruc515qjghsm1w foreign key (uuid) references summer_bank.product;
-alter table if exists summer_bank.card add constraint FKbsf3nwvyth8m666owuwcvc2o2 foreign key (uuid) references summer_bank.product;
-alter table if exists summer_bank.credit add constraint FKd3w1b0ulwuix83lqmv8vpu1im foreign key (uuid) references summer_bank.product;
-alter table if exists summer_bank.deposit add constraint FK5tgp3gj96ddnaleklcp1faws2 foreign key (uuid) references summer_bank.product;
+alter table if exists summer_bank.account add constraint fk_account_product foreign key (uuid) references summer_bank.product;
+alter table if exists summer_bank.card add constraint fk_card_product foreign key (uuid) references summer_bank.product;
+alter table if exists summer_bank.credit add constraint fk_credit_product foreign key (uuid) references summer_bank.product;
+alter table if exists summer_bank.deposit add constraint fk_deposit_product foreign key (uuid) references summer_bank.product;
 
 INSERT INTO summer_bank.product
     (uuid, amount, currency, created, is_active)
@@ -115,6 +115,7 @@ CREATE TABLE summer_bank.product_info
     is_visible       bool         NOT NULL,
     client_info_uuid varchar(255) NULL,
     product_uuid     varchar(255) NULL,
+    type             varchar(255) NULL,
     CONSTRAINT product_info_pkey PRIMARY KEY (uuid)
 );
 
@@ -127,9 +128,11 @@ ALTER TABLE summer_bank.product_info
     ADD CONSTRAINT fkcuwqf90hrplqgax55u8whnj2j FOREIGN KEY (product_uuid) REFERENCES summer_bank.product (uuid);
 
 INSERT INTO summer_bank.product_info
-(uuid, alias, created, is_active, is_visible, client_info_uuid, product_uuid)
-VALUES('fa992b22-890e-4e59-aa94-17877a53a689', 'Моя Карта', current_timestamp, true, true, 'fc7563e0-6a1a-4290-a5db-16120eb71f3b', 'df7e40f0-3d7b-47b3-bb6e-cc6395c4201d');
+(uuid, alias, created, is_active, is_visible, client_info_uuid, product_uuid, type)
+VALUES ('fa992b22-890e-4e59-aa94-17877a53a689', 'Моя Карта', current_timestamp, true, true,
+        'fc7563e0-6a1a-4290-a5db-16120eb71f3b', 'df7e40f0-3d7b-47b3-bb6e-cc6395c4201d', 'CARD');
 
 INSERT INTO summer_bank.product_info
-(uuid, alias, created, is_active, is_visible, client_info_uuid, product_uuid)
-VALUES('3eb7f42e-2875-4507-b7ba-52a1701543a5', 'Зарплатный счет', current_timestamp, true, true, 'fc7563e0-6a1a-4290-a5db-16120eb71f3b', 'b2159f63-e419-4100-b1a1-2dae400e26bd');
+(uuid, alias, created, is_active, is_visible, client_info_uuid, product_uuid, type)
+VALUES ('3eb7f42e-2875-4507-b7ba-52a1701543a5', 'Зарплатный счет', current_timestamp, true, true,
+        'fc7563e0-6a1a-4290-a5db-16120eb71f3b', 'b2159f63-e419-4100-b1a1-2dae400e26bd', 'CARD');

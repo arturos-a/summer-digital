@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
       file: db/changes/init/index.xml
+  - include:
+      file: db/changes/03_2022/index.xml

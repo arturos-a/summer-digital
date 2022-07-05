@@ -27,6 +27,6 @@ public class Product {
     private Currency currency;
     private LocalDateTime created;
     private LocalDateTime updated;
-    @OneToMany(mappedBy = "product")
-    private Set<ProductInfo> productInfo;
+//    @OneToMany(mappedBy = "product")
+//    private Set<ProductInfo> productInfo;
 }

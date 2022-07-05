@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductsDto {
     private List<CardDto> cards;
-    private List<AccountDto> accounts;
+    private List<AccountProfileDto> accounts;
     private List<DepositDto> deposits;
     private List<CreditDto> credits;
 

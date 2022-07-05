@@ -11,7 +11,7 @@
                  stripComments="false"
                  encoding="utf8"
                  relativeToChangelogFile="true"
-                 endDelimiter=";" />
+                 endDelimiter=";"/>
     </changeSet>
 
     <changeSet author="AArslanov" id="init_add_session_status">
@@ -20,7 +20,55 @@
                  stripComments="false"
                  encoding="utf8"
                  relativeToChangelogFile="true"
-                 endDelimiter=";" />
+                 endDelimiter=";"/>
+    </changeSet>
+    <changeSet author="AArslanov" id="init_add_account">
+        <sqlFile path="./0003.sql"
+                 splitStatements="false"
+                 stripComments="false"
+                 encoding="utf8"
+                 relativeToChangelogFile="true"
+                 endDelimiter=";"/>
+    </changeSet>
+    <changeSet author="AArslanov" id="init_add_types">
+        <sqlFile path="./0004.sql"
+                 splitStatements="false"
+                 stripComments="false"
+                 encoding="utf8"
+                 relativeToChangelogFile="true"
+                 endDelimiter=";"/>
+    </changeSet>
+    <changeSet author="AArslanov" id="init_rename_account">
+        <sqlFile path="./0005.sql"
+                 splitStatements="false"
+                 stripComments="false"
+                 encoding="utf8"
+                 relativeToChangelogFile="true"
+                 endDelimiter=";"/>
+    </changeSet>
+    <changeSet author="AArslanov" id="init_document_table">
+        <sqlFile path="./0006.sql"
+                 splitStatements="false"
+                 stripComments="false"
+                 encoding="utf8"
+                 relativeToChangelogFile="true"
+                 endDelimiter=";"/>
+    </changeSet>
+    <changeSet author="AArslanov" id="add_client_owner">
+        <sqlFile path="./0007.sql"
+                 splitStatements="false"
+                 stripComments="false"
+                 encoding="utf8"
+                 relativeToChangelogFile="true"
+                 endDelimiter=";"/>
+    </changeSet>
+    <changeSet author="AArslanov" id="add_owner_uuid">
+        <sqlFile path="./0008.sql"
+                 splitStatements="false"
+                 stripComments="false"
+                 encoding="utf8"
+                 relativeToChangelogFile="true"
+                 endDelimiter=";"/>
     </changeSet>
 
 </databaseChangeLog>

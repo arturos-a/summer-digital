@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "label": "amount",
+      "type": "textfield",
+      "id": "Field_01nr73j",
+      "key": "${amount}"
+    },
+    {
+      "label": "approved",
+      "type": "checkbox",
+      "id": "Field_0ul4ufi",
+      "key": "${approved}"
+    }
+  ],
+  "type": "default",
+  "id": "test_form",
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.16"
+}

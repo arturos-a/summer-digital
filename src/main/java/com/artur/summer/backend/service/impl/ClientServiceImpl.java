@@ -20,4 +20,8 @@ public class ClientServiceImpl implements ClientService {
         ClientInfoDto clientInfoDto = modelMapper.map(clientInfo, ClientInfoDto.class);
         return clientInfoDto;
     }
+
+    public ClientInfo getClientFullInfo(String token) {
+        return tokenService.getClientInfoByToken(token);
+    }
 }

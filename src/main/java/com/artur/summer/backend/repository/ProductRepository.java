@@ -9,6 +9,5 @@ import java.util.List;
 
 @NoRepositoryBean
 public interface ProductRepository<T extends Product> extends JpaRepository<T, String> {
-    @Query("select e from #{#entityName} as e where e.uuid = clientUuid")
-    List<T> findAllByClientUuid(String clientUuid);
+    List<T> findAllByUuidIn(List<String> ids);
 }

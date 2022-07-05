@@ -1,5 +1,5 @@
 <template>
-  <router-view />
+  <router-view/>
 </template>
 <script>
 // import AuthForm from "@/components/AuthForm";
@@ -7,15 +7,15 @@
 
 export default {
   name: 'App',
-  components: {
-  }
+  components: {}
 }
 </script>
 
 <style>
-body{
+body {
   margin: 0;
 }
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

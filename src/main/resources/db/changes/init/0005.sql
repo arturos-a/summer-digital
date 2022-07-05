@@ -1,0 +1,1 @@
+ALTER TABLE summer_bank.account RENAME COLUMN account_bic TO bank_bic;
